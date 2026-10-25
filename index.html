@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>帐旅 PennyTrace · 拍张小票，AI 帮你记好账</title>
+  <meta name="description" content="帐旅（PennyTrace）：拍张小票，AI 识别商家、金额和分类，确认即可保存。不用注册，没有广告，收据照片不会上传。Snap a receipt and AI logs the expense for you.">
+  <meta name="theme-color" content="#0B3D2A">
+  <meta property="og:title" content="帐旅 PennyTrace">
+  <meta property="og:description" content="拍张小票，AI 帮你记好账。Snap a receipt, and every penny is clear.">
+  <meta property="og:image" content="https://willraylei.github.io/PennyTrace/assets/zh/header.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --mint: #3FDC9A;
+      --emerald: #0C8F5A;
+      --accent: #1FB05E;
+      --deep: #0B3D2A;
+      --spark: #FFC94D;
+      --bg: #F6FAF7;
+      --bg-soft: #EAF5EE;
+      --card: #FFFFFF;
+      --text: #10261B;
+      --secondary: #5B6B62;
+      --line: rgba(12, 60, 40, 0.10);
+      --shadow: 0 24px 60px -24px rgba(11, 61, 42, 0.35);
+      --radius: 28px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #3ED381;
+        --bg: #07130D;
+        --bg-soft: #0D2017;
+        --card: #12241A;
+        --text: #EEF6F1;
+        --secondary: #9DB2A6;
+        --line: rgba(255, 255, 255, 0.10);
+        --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* 中英切换：只显示当前语言的内容 */
+    html[data-lang="zh"] [lang="en"]:not(html) { display: none !important; }
+    html[data-lang="en"] [lang="zh-Hans"]:not(html) { display: none !important; }
+
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+    /* 导航 */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap { display: flex; align-items: center; gap: 24px; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); font-size: 1.05rem; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 30px; height: 30px; border-radius: 8px; }
+    .brand small { color: var(--secondary); font-weight: 500; }
+    .navlinks { display: flex; gap: 22px; margin-left: auto; font-size: 0.92rem; }
+    .navlinks a { color: var(--secondary); }
+    .navlinks a:hover { color: var(--text); text-decoration: none; }
+    .switch { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--line); }
+    .switch button {
+      appearance: none; border: 0; background: transparent; color: var(--secondary);
+      font: inherit; font-size: 0.82rem; padding: 4px 12px; border-radius: 999px; cursor: pointer;
+    }
+    .switch button[aria-pressed="true"] { background: var(--card); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+    /* 首屏 */
+    .hero {
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(1200px 600px at 85% -10%, color-mix(in srgb, var(--mint) 35%, transparent), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, color-mix(in srgb, var(--emerald) 22%, transparent), transparent 60%),
+        var(--bg);
+    }
+    .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding-top: 72px; padding-bottom: 40px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      color: var(--emerald); font-weight: 600; font-size: 0.88rem;
+    }
+    @media (prefers-color-scheme: dark) { .eyebrow { color: var(--mint); } }
+    .spark { color: var(--spark); }
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      line-height: 1.08; letter-spacing: -0.03em; margin: 20px 0 18px; font-weight: 800;
+    }
+    h1 .grad {
+      background: linear-gradient(120deg, var(--emerald), var(--mint));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lead { font-size: 1.18rem; color: var(--secondary); max-width: 34em; margin: 0 0 28px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .store {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px; border-radius: 14px;
+      background: #000; color: #fff; font-weight: 600;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,.5);
+    }
+    .store:hover { text-decoration: none; transform: translateY(-1px); }
+    .store svg { width: 22px; height: 22px; fill: currentColor; }
+    .store .s { display: flex; flex-direction: column; line-height: 1.15; }
+    .store .s small { font-size: 0.7rem; font-weight: 500; opacity: .8; }
+    @media (prefers-color-scheme: dark) { .store { background: #fff; color: #000; } }
+    .ghost { color: var(--text); font-weight: 600; padding: 12px 6px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; padding: 0; list-style: none; }
+    .chips li {
+      font-size: 0.86rem; color: var(--secondary);
+      padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card);
+    }
+    .chips li::before { content: "✓"; color: var(--accent); font-weight: 700; margin-right: 6px; }
+
+    .stage { position: relative; height: 640px; }
+    .phone {
+      position: absolute; width: 300px; border-radius: 36px; overflow: hidden;
+      box-shadow: var(--shadow); border: 1px solid var(--line); background: var(--card);
+    }
+    .phone.a { left: 4%; top: 10px; transform: rotate(-4deg); z-index: 2; }
+    .phone.b { right: 2%; top: 70px; transform: rotate(5deg); width: 270px; }
+    .glow {
+      position: absolute; inset: 20% 10%; border-radius: 50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--spark) 40%, transparent), transparent 70%);
+      filter: blur(40px); z-index: 0;
+    }
+
+    /* 通用区块 */
+    section { padding: 96px 0; }
+    .kicker { color: var(--accent); font-weight: 700; letter-spacing: .04em; font-size: .9rem; text-transform: uppercase; }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.15; letter-spacing: -0.02em; margin: 10px 0 14px; }
+    .sub { color: var(--secondary); font-size: 1.1rem; max-width: 40em; margin: 0; }
+    .center { text-align: center; }
+    .center .sub { margin: 0 auto; }
+
+    /* 三个承诺 */
+    .promises { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .promise { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+    .promise .num { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.03em; color: var(--emerald); }
+    @media (prefers-color-scheme: dark) { .promise .num { color: var(--mint); } }
+    .promise h3 { margin: 6px 0 6px; font-size: 1.2rem; }
+    .promise p { margin: 0; color: var(--secondary); }
+
+    /* 功能交替展示 */
+    .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 56px 0; }
+    .feature.flip .text { order: 2; }
+    .feature .shot {
+      justify-self: center; width: min(340px, 80vw); border-radius: 40px; overflow: hidden;
+      box-shadow: var(--shadow); border: 1px solid var(--line);
+    }
+    .feature h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 14px; }
+    .feature ul { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+    .feature li { display: flex; gap: 12px; color: var(--secondary); }
+    .feature li b { color: var(--text); font-weight: 600; }
+    .dot {
+      flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+      background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); font-size: .85rem; font-weight: 700;
+    }
+    .tag-ultra {
+      display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .06em;
+      padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--spark) 30%, transparent); color: #8A5A00; vertical-align: middle;
+    }
+    @media (prefers-color-scheme: dark) { .tag-ultra { color: var(--spark); } }
+
+    /* 小功能网格 */
+    .soft { background: var(--bg-soft); }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .tile { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; transition: transform .25s ease, box-shadow .25s ease; }
+    .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .tile .ic { font-size: 1.6rem; line-height: 1; }
+    .tile h4 { margin: 12px 0 4px; font-size: 1.02rem; }
+    .tile p { margin: 0; color: var(--secondary); font-size: .92rem; }
+
+    /* 多设备 */
+    .devices { display: grid; grid-template-columns: 0.78fr 1.22fr; gap: 20px; margin-top: 48px; align-items: stretch; }
+    .device { margin: 0; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+    .device img { width: 100%; flex: 1; object-fit: cover; object-position: top; }
+    .device figcaption { padding: 18px 22px 22px; color: var(--secondary); display: grid; gap: 2px; }
+    .device figcaption b { color: var(--text); font-size: 1.05rem; }
+    .watch {
+      margin-top: 20px; display: flex; gap: 20px; align-items: center;
+      padding: 24px 28px; border-radius: var(--radius); border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+      background: linear-gradient(120deg, color-mix(in srgb, var(--mint) 10%, var(--card)), var(--card));
+    }
+    .watch-ic { flex: none; width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; font-size: 2rem; background: var(--deep); color: var(--mint); }
+    .watch h4 { margin: 6px 0 2px; font-size: 1.15rem; }
+    .watch p { margin: 0; color: var(--secondary); }
+    .soon { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+
+    /* 隐私 */
+    .privacy { background: linear-gradient(160deg, #0B3D2A, #072519); color: #EAF5EE; }
+    .privacy .kicker { color: var(--mint); }
+    .privacy .sub { color: #A9C7B6; }
+    .privacy .grid { grid-template-columns: repeat(3, 1fr); }
+    .privacy .tile { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.10); }
+    .privacy .tile p { color: #A9C7B6; }
+    .privacy a { color: var(--mint); }
+
+    /* 价格 */
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; align-items: stretch; }
+    .plan { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; }
+    .plan.pro { border: 2px solid var(--accent); position: relative; }
+    .plan.pro::before {
+      content: attr(data-badge); position: absolute; top: -13px; left: 30px;
+      background: var(--accent); color: #fff; font-size: .78rem; font-weight: 700; padding: 3px 12px; border-radius: 999px;
+    }
+    .plan.ultra { background: linear-gradient(170deg, color-mix(in srgb, var(--spark) 14%, var(--card)), var(--card) 55%); }
+    .plan h3 { margin: 0; font-size: 1.35rem; }
+    .plan .price { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 2px; }
+    .plan .price small { font-size: 1rem; font-weight: 500; color: var(--secondary); }
+    .plan .yr { color: var(--secondary); font-size: .92rem; margin: 0 0 18px; }
+    .plan ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .plan li { padding-left: 24px; position: relative; color: var(--secondary); font-size: .96rem; }
+    .plan li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .plan.ultra li::before { content: "✦"; color: #D9A21E; }
+    .fine { color: var(--secondary); font-size: .85rem; margin-top: 24px; text-align: center; }
+
+    /* 常见问题 */
+    .faq { max-width: 780px; margin: 40px auto 0; }
+    details { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 4px 22px; margin-bottom: 12px; }
+    summary { cursor: pointer; font-weight: 600; padding: 16px 0; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; line-height: 1; transition: transform .2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { margin: 0 0 18px; color: var(--secondary); }
+
+    /* 结尾 */
+    .final { text-align: center; padding: 110px 0; }
+    .final img { width: 96px; height: 96px; margin: 0 auto 20px; border-radius: 22px; box-shadow: var(--shadow); }
+    .final .cta { justify-content: center; margin-top: 28px; }
+    footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--secondary); font-size: .88rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; }
+    footer .links { display: flex; flex-wrap: wrap; gap: 20px; margin-left: auto; }
+    footer a { color: var(--secondary); }
+
+    /* 进入视口时淡入 */
+    .anim .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+    .anim .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .anim .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+      .tile:hover, .store:hover { transform: none; }
+    }
+
+    @media (max-width: 960px) {
+      .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; }
+      .stage { height: 520px; max-width: 520px; width: 100%; margin: 0 auto; }
+      .phone { width: 250px; }
+      .phone.b { width: 220px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .devices { grid-template-columns: 1fr; }
+      .privacy .grid { grid-template-columns: 1fr 1fr; }
+      .plans, .promises { grid-template-columns: 1fr; }
+      .feature { grid-template-columns: 1fr; gap: 36px; padding: 40px 0; }
+      .feature.flip .text { order: 0; }
+      .navlinks { display: none; }
+      .switch { margin-left: auto; }
+      section { padding: 72px 0; }
+    }
+    @media (max-width: 560px) {
+      .grid, .privacy .grid { grid-template-columns: 1fr; }
+      .stage { height: 440px; }
+      .phone { width: 205px; border-radius: 28px; }
+      .phone.b { width: 180px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#top">
+        <img src="assets/icon.png" alt="" width="30" height="30">
+        <span lang="zh-Hans">帐旅 <small>PennyTrace</small></span>
+        <span lang="en">PennyTrace</span>
+      </a>
+      <div class="navlinks">
+        <a href="#features"><span lang="zh-Hans">功能</span><span lang="en">Features</span></a>
+        <a href="#devices"><span lang="zh-Hans">设备</span><span lang="en">Devices</span></a>
+        <a href="#privacy"><span lang="zh-Hans">隐私</span><span lang="en">Privacy</span></a>
+        <a href="#pricing"><span lang="zh-Hans">价格</span><span lang="en">Pricing</span></a>
+        <a href="#faq"><span lang="zh-Hans">常见问题</span><span lang="en">FAQ</span></a>
+      </div>
+      <div class="switch" role="group" aria-label="Language">
+        <button type="button" data-set-lang="zh" aria-pressed="true">中文</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow"><span class="spark">✦</span>
+          <span lang="zh-Hans">AI 识别 · 自动分类 · 支出分析</span>
+          <span lang="en">AI receipt scanning · Auto categories · Insights</span>
+        </span>
+        <h1>
+          <span lang="zh-Hans">小票一拍，<br><span class="grad">每笔都清楚</span></span>
+          <span lang="en">Snap a receipt.<br><span class="grad">Every penny, clear.</span></span>
+        </h1>
+        <p class="lead" lang="zh-Hans">拍一下小票，AI 帮你填好商家、金额、日期和分类，确认就能保存。从拿出手机到记好一笔，不超过 10 秒。</p>
+        <p class="lead" lang="en">Take a photo of a receipt and AI fills in the merchant, amount, date and category. Confirm and save. From pocket to logged in under 10 seconds.</p>
+        <div class="cta">
+          <a class="store js-store" href="#download">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.67zM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27z"/></svg>
+            <span class="s">
+              <small><span lang="zh-Hans" class="js-store-small">即将登陆</span><span lang="en" class="js-store-small">Coming soon on the</span></small>
+              <span>App Store</span>
+            </span>
+          </a>
+          <a class="ghost" href="#features"><span lang="zh-Hans">看看能做什么 →</span><span lang="en">See what it does →</span></a>
+        </div>
+        <ul class="chips">
+          <li><span lang="zh-Hans">不用注册</span><span lang="en">No account</span></li>
+          <li><span lang="zh-Hans">没有广告</span><span lang="en">No ads</span></li>
+          <li><span lang="zh-Hans">收据照片不上传</span><span lang="en">Photos stay on device</span></li>
+          <li><span lang="zh-Hans">免费体验 14 天 Pro</span><span lang="en">14-day Pro trial</span></li>
+        </ul>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="phone a"><img data-shot="01-scan" src="assets/zh/01-scan.jpg" alt="" width="640" height="1089"></div>
+        <div class="phone b"><img data-shot="05-ai" src="assets/zh/05-ai.jpg" alt="" width="640" height="1089"></div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap center reveal">
+      <div class="kicker"><span lang="zh-Hans">三个承诺</span><span lang="en">Three promises</span></div>
+      <h2><span lang="zh-Hans">记账这件事，应该轻松一点</span><span lang="en">Tracking money should feel light</span></h2>
+      <p class="sub" lang="zh-Hans">写给想知道钱花去哪里、又懒得一笔笔手动输入的你。</p>
+      <p class="sub" lang="en">For anyone who wants to know where the money goes, without typing in every purchase.</p>
+      <div class="promises">
+        <div class="promise">
+          <div class="num">10s</div>
+          <h3><span lang="zh-Hans">快</span><span lang="en">Fast</span></h3>
+          <p lang="zh-Hans">拍照、确认、保存。识别在后台进行，实时活动和灵动岛告诉你进度。</p>
+          <p lang="en">Snap, confirm, save. Recognition runs in the background, with progress in a Live Activity and the Dynamic Island.</p>
+        </div>
+        <div class="promise">
+          <div class="num">✓</div>
+          <h3><span lang="zh-Hans">准</span><span lang="en">Accurate</span></h3>
+          <p lang="zh-Hans">AI 的结果都要经你确认，每个字段都能改。没把握时明说，不悄悄猜。</p>
+          <p lang="en">You confirm every AI result and can edit every field. When it isn't sure, it says so instead of guessing.</p>
+        </div>
+        <div class="promise">
+          <div class="num">🔒</div>
+          <h3><span lang="zh-Hans">私密</span><span lang="en">Private</span></h3>
+          <p lang="zh-Hans">不设账号，没有广告。账单默认只存在你的手机上，同步由你决定。</p>
+          <p lang="en">No account, no ads. Expenses stay on your device unless you choose to sync.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" style="padding-top: 24px;">
+    <div class="wrap">
+      <div class="feature reveal">
+        <div class="text">
+          <div class="kicker"><span lang="zh-Hans">拍照记账</span><span lang="en">Receipt scanning</span></div>
+          <h3><span lang="zh-Hans">拍张小票，自动记好一笔</span><span lang="en">Snap a receipt. It's logged.</span></h3>
+          <p class="sub" lang="zh-Hans">AI 识别商家、金额、日期和分类。照片太模糊或不像收据时，当场告诉你原因，并给出重试和手动填写。</p>
+          <p class="sub" lang="en">AI reads the merchant, amount, date and category. If a photo is blurry or isn't a receipt, you're told why right away, with Retry and Enter Manually.</p>
+          <ul>
+            <li><span class="dot">1</span><span lang="zh-Hans"><b>多种入口</b>：相机、相册、分享菜单、快捷指令、控制中心</span><span lang="en"><b>Many ways in</b>: Camera, Photos, the share sheet, Shortcuts and Control Center</span></li>
+            <li><span class="dot">2</span><span lang="zh-Hans"><b>记得你的习惯</b>：同一个商家，默认选上次用的分类</span><span lang="en"><b>Learns your habits</b>: each merchant remembers the category you used last time</span></li>
+            <li><span class="dot">3</span><span lang="zh-Hans"><b>相册更清爽</b>：保存后可以顺手删除原照片</span><span lang="en"><b>Tidy Photos</b>: delete the original photo after saving, if you like</span></li>
+          </ul>
+        </div>
+        <div class="shot"><img data-shot="01-scan" src="assets/zh/01-scan.jpg" alt="" loading="lazy" width="640" height="1089"></div>
+      </div>
+
+      <div class="feature flip reveal">
+        <div class="text">
+          <div class="kicker"><span lang="zh-Hans">概览</span><span lang="en">Overview</span></div>
+          <h3><span lang="zh-Hans">这个月花了多少，一眼就知道</span><span lang="en">This month's spending, at a glance</span></h3>
+          <p class="sub" lang="zh-Hans">本月支出、预算进度、近 7 天走势和最近账单都在一页。快速记账条常驻顶部，一点就能记。</p>
+          <p class="sub" lang="en">Monthly spending, budget progress, the last 7 days and recent expenses on one screen. The quick-add bar is always one tap away.</p>
+        </div>
+        <div class="shot"><img data-shot="02-overview" src="assets/zh/02-overview.jpg" alt="" loading="lazy" width="640" height="1089"></div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="text">
+          <div class="kicker"><span lang="zh-Hans">账单</span><span lang="en">Expenses</span></div>
+          <h3><span lang="zh-Hans">每一笔，都找得到</span><span lang="en">Find any expense in seconds</span></h3>
+          <p class="sub" lang="zh-Hans">按商家、分类、备注或金额搜索；今天、上个月、今年或任意日期范围，一点就筛出来。删除可以撤销，不怕手滑。</p>
+          <p class="sub" lang="en">Search by merchant, category, note or amount, and filter by today, last month, this year or any range. Deletes can be undone.</p>
+        </div>
+        <div class="shot"><img data-shot="03-bills" src="assets/zh/03-bills.jpg" alt="" loading="lazy" width="640" height="1089"></div>
+      </div>
+
+      <div class="feature flip reveal">
+        <div class="text">
+          <div class="kicker"><span lang="zh-Hans">统计</span><span lang="en">Insights</span></div>
+          <h3><span lang="zh-Hans">看清钱花在哪</span><span lang="en">See where it all goes</span></h3>
+          <p class="sub" lang="zh-Hans">按周、月、年或自定义时间，查看分类占比、每日支出和趋势。图表可以自选，按你的习惯排列。</p>
+          <p class="sub" lang="en">Weekly, monthly, yearly or custom stats with category breakdowns, daily spending and trends. Pick the charts you care about and arrange them your way.</p>
+        </div>
+        <div class="shot"><img data-shot="04-stats" src="assets/zh/04-stats.jpg" alt="" loading="lazy" width="640" height="1089"></div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="text">
+          <div class="kicker"><span lang="zh-Hans">AI 智能洞察</span><span lang="en">AI Insights</span> <span class="tag-ultra">ULTRA</span></div>
+          <h3><span lang="zh-Hans">提前知道，这个月会花多少</span><span lang="en">Know where the month is heading</span></h3>
+          <p class="sub" lang="zh-Hans">AI 结合你的历史账单，预测本月和下个月的支出，找出异常消费，并给出具体可行的省钱建议。</p>
+          <p class="sub" lang="en">Based on your history, AI forecasts this month and next, spots unusual spending and suggests practical ways to save.</p>
+        </div>
+        <div class="shot"><img data-shot="05-ai" src="assets/zh/05-ai.jpg" alt="" loading="lazy" width="640" height="1089"></div>
+      </div>
+
+      <div class="feature flip reveal">
+        <div class="text">
+          <div class="kicker"><span lang="zh-Hans">预算</span><span lang="en">Budgets</span></div>
+          <h3><span lang="zh-Hans">花多少，心里有数</span><span lang="en">Stay on budget, calmly</span></h3>
+          <p class="sub" lang="zh-Hans">设好月度、年度和分类预算，用掉 80% 和超支时提醒你。房租、会员这类固定支出设成周期账单，到期自动入账。</p>
+          <p class="sub" lang="en">Set monthly, yearly and category budgets, with alerts at 80% and when you go over. Rent and memberships become recurring bills that log themselves.</p>
+        </div>
+        <div class="shot"><img data-shot="06-budget" src="assets/zh/06-budget.jpg" alt="" loading="lazy" width="640" height="1089"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft">
+    <div class="wrap center reveal">
+      <div class="kicker"><span lang="zh-Hans">还有更多</span><span lang="en">And more</span></div>
+      <h2><span lang="zh-Hans">小细节，都替你想好了</span><span lang="en">The small things, already thought through</span></h2>
+      <div class="grid" style="text-align: left;">
+        <div class="tile"><div class="ic">📥</div><h4><span lang="zh-Hans">导入账单</span><span lang="en">Import statements</span></h4><p lang="zh-Hans">微信支付、支付宝账单，以及 CSV、Excel 表格。</p><p lang="en">WeChat Pay and Alipay statements, plus any CSV or Excel file.</p></div>
+        <div class="tile"><div class="ic">🔁</div><h4><span lang="zh-Hans">周期账单</span><span lang="en">Recurring bills</span></h4><p lang="zh-Hans">到期自动入账，提前一天提醒，可以随时暂停。</p><p lang="en">Logged automatically, with a reminder the day before. Pause anytime.</p></div>
+        <div class="tile"><div class="ic">👨‍👩‍👧</div><h4><span lang="zh-Hans">账本与成员</span><span lang="en">Ledgers & members</span></h4><p lang="zh-Hans">家庭开销、旅行花费分开记，按成员统计。</p><p lang="en">Keep household and travel spending apart, with per-member stats.</p></div>
+        <div class="tile"><div class="ic">📍</div><h4><span lang="zh-Hans">消费地点</span><span lang="en">Places</span></h4><p lang="zh-Hans">记下在哪里花的钱，在地图上回看。</p><p lang="en">Remember where you spent, and see it on a map.</p></div>
+        <div class="tile"><div class="ic">🧩</div><h4><span lang="zh-Hans">小组件</span><span lang="en">Widgets</span></h4><p lang="zh-Hans">主屏幕和锁屏直接看本月支出。</p><p lang="en">This month's spending on your Home Screen and Lock Screen.</p></div>
+        <div class="tile"><div class="ic">☁️</div><h4><span lang="zh-Hans">iCloud 同步</span><span lang="en">iCloud Sync</span></h4><p lang="zh-Hans">iPhone 和 iPad 之间同步，由你决定是否开启。</p><p lang="en">Sync between iPhone and iPad, only if you turn it on.</p></div>
+        <div class="tile"><div class="ic">💾</div><h4><span lang="zh-Hans">导出与备份</span><span lang="en">Export & backup</span></h4><p lang="zh-Hans">导出 CSV，备份和恢复全部数据。</p><p lang="en">Export to CSV, and back up or restore everything.</p></div>
+        <div class="tile"><div class="ic">♿️</div><h4><span lang="zh-Hans">人人可用</span><span lang="en">Accessible</span></h4><p lang="zh-Hans">支持深色模式、动态字体和旁白。</p><p lang="en">Dark Mode, Dynamic Type and VoiceOver.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="devices">
+    <div class="wrap center reveal">
+      <div class="kicker"><span lang="zh-Hans">多设备</span><span lang="en">Every screen</span></div>
+      <h2><span lang="zh-Hans">屏幕变大，账也看得更清楚</span><span lang="en">Bigger screen, clearer numbers</span></h2>
+      <p class="sub" lang="zh-Hans">为 iPhone、可折叠的 iPhone Duo 和 iPad 分别适配，展开、旋转、分屏，布局都会跟着调整。</p>
+      <p class="sub" lang="en">Built for iPhone, the foldable iPhone Duo and iPad. Unfold, rotate or split the screen and the layout adapts.</p>
+      <div class="devices" style="text-align: left;">
+        <figure class="device">
+          <img data-shot="duo" src="assets/zh/duo.jpg" alt="" loading="lazy" width="900" height="976">
+          <figcaption><b>iPhone Duo</b><span lang="zh-Hans">展开就是一块大屏，侧边栏单手就能切换。</span><span lang="en">Unfold for a big canvas, with a sidebar that's easy to reach.</span></figcaption>
+        </figure>
+        <figure class="device">
+          <img data-shot="ipad" src="assets/zh/ipad.jpg" alt="" loading="lazy" width="1600" height="1152">
+          <figcaption><b>iPad</b><span lang="zh-Hans">大屏看账更舒服，支持台前调度和分屏浏览。</span><span lang="en">More room for your numbers, with Stage Manager and Split View.</span></figcaption>
+        </figure>
+      </div>
+      <div class="watch" style="text-align: left;">
+        <div class="watch-ic" aria-hidden="true">⌚︎</div>
+        <div>
+          <span class="soon"><span lang="zh-Hans">即将推出</span><span lang="en">Coming soon</span></span>
+          <h4>Apple Watch</h4>
+          <p lang="zh-Hans">抬腕查看本月支出和预算，将在未来版本推出。</p>
+          <p lang="en">Check this month's spending and budget from your wrist. Coming in a future update.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="privacy" id="privacy">
+    <div class="wrap reveal">
+      <div class="kicker"><span lang="zh-Hans">隐私优先</span><span lang="en">Privacy first</span></div>
+      <h2><span lang="zh-Hans">你的账，只属于你</span><span lang="en">Your money is your business</span></h2>
+      <p class="sub" lang="zh-Hans">帐旅不做社交、不推理财产品、不强制登录，也不放广告。</p>
+      <p class="sub" lang="en">No social feeds, no financial product pitches, no forced sign-in and no ads.</p>
+      <div class="grid">
+        <div class="tile"><div class="ic">📷</div><h4><span lang="zh-Hans">照片不上传</span><span lang="en">Photos never leave</span></h4><p lang="zh-Hans">收据照片不会发给开发者或 AI 服务，只有识别出的文字会交给 AI 整理。</p><p lang="en">Receipt photos are never sent to the developer or an AI service. Only the recognized text is.</p></div>
+        <div class="tile"><div class="ic">✦</div><h4><span lang="zh-Hans">AI 由你决定</span><span lang="en">AI is your choice</span></h4><p lang="zh-Hans">AI 默认关闭，开启前会说明用途，随时可以关掉。</p><p lang="en">AI is off by default, explained before you turn it on, and can be turned off anytime.</p></div>
+        <div class="tile"><div class="ic">🙂</div><h4><span lang="zh-Hans">面容 ID 锁</span><span lang="en">Face ID lock</span></h4><p lang="zh-Hans">打开 App 锁，别人拿到手机也看不到你的账。</p><p lang="en">Turn on App Lock so your expenses stay private even if someone has your phone.</p></div>
+      </div>
+      <p style="margin-top: 28px;">
+        <a href="https://willraylei.github.io/SnapExpense-legal/privacy-policy.html"><span lang="zh-Hans">阅读完整隐私政策 →</span><span lang="en">Read the full privacy policy →</span></a>
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap center reveal">
+      <div class="kicker"><span lang="zh-Hans">价格</span><span lang="en">Pricing</span></div>
+      <h2><span lang="zh-Hans">免费好用，需要时再升级</span><span lang="en">Free to use. Upgrade when you need more.</span></h2>
+      <p class="sub" lang="zh-Hans">新用户可免费体验 14 天 Pro，不需要订阅，到期不会扣费。</p>
+      <p class="sub" lang="en">New users get 14 days of Pro free. No subscription needed, and it never charges.</p>
+      <div class="plans" style="text-align: left;">
+        <div class="plan">
+          <h3><span lang="zh-Hans">免费版</span><span lang="en">Free</span></h3>
+          <div class="price">¥0</div>
+          <p class="yr"><span lang="zh-Hans">一直免费</span><span lang="en">Always free</span></p>
+          <ul>
+            <li><span lang="zh-Hans">手动记账不限次数</span><span lang="en">Unlimited manual entry</span></li>
+            <li><span lang="zh-Hans">每天 3 次 AI 识别、1 次 AI 汇总</span><span lang="en">3 AI scans and 1 AI summary a day</span></li>
+            <li><span lang="zh-Hans">1 个账本</span><span lang="en">1 ledger</span></li>
+            <li><span lang="zh-Hans">搜索、统计、导入账单</span><span lang="en">Search, stats and statement import</span></li>
+          </ul>
+        </div>
+        <div class="plan pro" data-badge="">
+          <h3>Pro</h3>
+          <div class="price">¥15<small><span lang="zh-Hans"> / 月</span><span lang="en"> / mo</span></small></div>
+          <p class="yr"><span lang="zh-Hans">或 ¥118 / 年</span><span lang="en">or ¥118 / year</span></p>
+          <ul>
+            <li><span lang="zh-Hans">iCloud 多设备同步</span><span lang="en">iCloud sync across devices</span></li>
+            <li><span lang="zh-Hans">每天 30 次 AI 识别、10 次 AI 汇总</span><span lang="en">30 AI scans and 10 AI summaries a day</span></li>
+            <li><span lang="zh-Hans">账本、成员不限</span><span lang="en">Unlimited ledgers and members</span></li>
+            <li><span lang="zh-Hans">预算、周期账单、按成员统计</span><span lang="en">Budgets, recurring bills, per-member stats</span></li>
+            <li><span lang="zh-Hans">自选统计图表</span><span lang="en">Customizable charts</span></li>
+            <li><span lang="zh-Hans">记账时记录消费地点</span><span lang="en">Expense locations</span></li>
+            <li><span lang="zh-Hans">导出 CSV、备份与恢复</span><span lang="en">CSV export, backup and restore</span></li>
+            <li><span lang="zh-Hans">桌面和锁屏小组件</span><span lang="en">Home Screen and Lock Screen widgets</span></li>
+          </ul>
+        </div>
+        <div class="plan ultra">
+          <h3>Ultra <span class="spark">✦</span></h3>
+          <div class="price">¥30<small><span lang="zh-Hans"> / 月</span><span lang="en"> / mo</span></small></div>
+          <p class="yr"><span lang="zh-Hans">或 ¥248 / 年</span><span lang="en">or ¥248 / year</span></p>
+          <ul>
+            <li><span lang="zh-Hans">包含 Pro 全部功能</span><span lang="en">Everything in Pro</span></li>
+            <li><span lang="zh-Hans">AI 识别、AI 汇总不限次数</span><span lang="en">Unlimited AI scans and summaries</span></li>
+            <li><span lang="zh-Hans">AI 智能洞察：预测支出、找出异常消费、给出省钱建议</span><span lang="en">AI Insights: spending forecasts, unusual spending and ways to save</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="fine" lang="zh-Hans">以上为中国大陆 App Store 价格，其他地区以 App 内显示为准。订阅按所选周期自动续订，可随时在“设置” > Apple 账户 > “订阅”中取消。</p>
+      <p class="fine" lang="en">Prices shown are for the China mainland App Store. Your local price is shown in the app. Subscriptions renew automatically and can be cancelled anytime in Settings > Apple Account > Subscriptions.</p>
+    </div>
+  </section>
+
+  <section class="soft" id="faq">
+    <div class="wrap reveal">
+      <div class="center">
+        <div class="kicker"><span lang="zh-Hans">常见问题</span><span lang="en">FAQ</span></div>
+        <h2><span lang="zh-Hans">你可能想知道</span><span lang="en">You might be wondering</span></h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary><span lang="zh-Hans">需要注册账号吗？</span><span lang="en">Do I need an account?</span></summary>
+          <p lang="zh-Hans">不需要。打开就能用，没有登录，也没有广告。</p>
+          <p lang="en">No. Open the app and start. There's no sign-in and no ads.</p>
+        </details>
+        <details>
+          <summary><span lang="zh-Hans">我的收据照片会被上传吗？</span><span lang="en">Are my receipt photos uploaded?</span></summary>
+          <p lang="zh-Hans">不会。照片不会发送给开发者或 AI 服务。开启 AI 后，只有识别出的文字会经云端交给 AI 整理。</p>
+          <p lang="en">No. Photos are never sent to the developer or an AI service. With AI turned on, only the recognized text is sent for processing.</p>
+        </details>
+        <details>
+          <summary><span lang="zh-Hans">不开 AI 能用吗？</span><span lang="en">Can I use it without AI?</span></summary>
+          <p lang="zh-Hans">可以。AI 默认关闭，你可以一直手动记账、导入账单，统计、搜索、预算等功能都照常使用。拍照识别需要开启 AI。</p>
+          <p lang="en">Yes. AI is off by default. Manual entry, statement import, stats, search and budgets all work without it. Receipt scanning needs AI turned on.</p>
+        </details>
+        <details>
+          <summary><span lang="zh-Hans">14 天试用到期会自动扣费吗？</span><span lang="en">Will the 14-day trial charge me?</span></summary>
+          <p lang="zh-Hans">不会。试用不需要订阅，到期后自动回到免费版，已有的账单都还在。</p>
+          <p lang="en">No. The trial doesn't need a subscription. When it ends you're back on Free, and all your expenses are still there.</p>
+        </details>
+        <details>
+          <summary><span lang="zh-Hans">能导入微信和支付宝的账单吗？</span><span lang="en">Can I import WeChat Pay or Alipay statements?</span></summary>
+          <p lang="zh-Hans">可以。从微信或支付宝导出账单文件后，用帐旅打开即可。其他 CSV 和 Excel 表格也支持，导入前可以预览和调整。</p>
+          <p lang="en">Yes. Export the statement from WeChat or Alipay and open it in PennyTrace. Other CSV and Excel files work too, with a preview before import.</p>
+        </details>
+        <details>
+          <summary><span lang="zh-Hans">支持哪些设备？</span><span lang="en">Which devices are supported?</span></summary>
+          <p lang="zh-Hans">支持 iOS 17 及以上的 iPhone（包括 iPhone Duo），以及 iPadOS 17 及以上的 iPad。Apple Watch 版本将在未来推出。</p>
+          <p lang="en">iPhone with iOS 17 or later (including iPhone Duo), and iPad with iPadOS 17 or later. An Apple Watch version is coming in a future update.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="download">
+    <div class="wrap reveal">
+      <img src="assets/icon.png" alt="" width="96" height="96">
+      <h2><span lang="zh-Hans">从下一张小票开始</span><span lang="en">Start with your next receipt</span></h2>
+      <p class="sub center" style="margin: 0 auto;" lang="zh-Hans">帐旅，记下每一笔花销。</p>
+      <p class="sub center" style="margin: 0 auto;" lang="en">PennyTrace keeps track of every penny.</p>
+      <div class="cta">
+        <a class="store js-store" href="#download">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.67zM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27z"/></svg>
+          <span class="s">
+            <small><span lang="zh-Hans" class="js-store-small">即将登陆</span><span lang="en" class="js-store-small">Coming soon on the</span></small>
+            <span>App Store</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Alex Lei <span lang="zh-Hans">雷斌</span></span>
+      <div class="links">
+        <a href="https://willraylei.github.io/SnapExpense-legal/privacy-policy.html"><span lang="zh-Hans">隐私政策</span><span lang="en">Privacy Policy</span></a>
+        <a href="https://willraylei.github.io/SnapExpense-legal/support.html"><span lang="zh-Hans">技术支持</span><span lang="en">Support</span></a>
+        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"><span lang="zh-Hans">使用条款</span><span lang="en">Terms of Use</span></a>
+        <a href="mailto:AlexLeiBin1@gmail.com">AlexLeiBin1@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 上架后填入 App Store Connect 里的 Apple ID（纯数字），下载按钮就会指向 App Store。
+    const APP_STORE_ID = "";
+
+    if (APP_STORE_ID) {
+      document.querySelectorAll(".js-store").forEach(a => { a.href = `https://apps.apple.com/app/id${APP_STORE_ID}`; });
+      document.querySelectorAll(".js-store-small").forEach(s => {
+        s.textContent = s.lang === "en" ? "Download on the" : "前往";
+      });
+    }
+
+    // 语言：?lang= 优先，其次是上次的选择，最后跟随浏览器
+    const params = new URLSearchParams(location.search);
+    let saved = null;
+    try { saved = localStorage.getItem("pt-lang"); } catch (e) {}
+    const browserLang = (navigator.language || "zh").toLowerCase().startsWith("zh") ? "zh" : "en";
+    const initial = params.get("lang") || saved || browserLang;
+
+    function setLang(lang) {
+      lang = lang === "en" ? "en" : "zh";
+      const root = document.documentElement;
+      root.dataset.lang = lang;
+      root.lang = lang === "en" ? "en" : "zh-Hans";
+      document.title = lang === "en"
+        ? "PennyTrace · Snap a receipt, AI logs the expense"
+        : "帐旅 PennyTrace · 拍张小票，AI 帮你记好账";
+      document.querySelectorAll("[data-set-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)));
+      document.querySelectorAll("img[data-shot]").forEach(img => { img.src = `assets/${lang}/${img.dataset.shot}.jpg`; });
+      document.querySelector(".plan.pro").dataset.badge = lang === "en" ? "Recommended" : "推荐";
+      try { localStorage.setItem("pt-lang", lang); } catch (e) {}
+    }
+    document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.setLang)));
+    setLang(initial);
+
+    // 区块进入视口时淡入；不支持 IntersectionObserver 或带 ?static 时直接显示
+    if ("IntersectionObserver" in window && !params.has("static")) {
+      document.documentElement.classList.add("anim");
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    }
+  </script>
+</body>
+</html>
