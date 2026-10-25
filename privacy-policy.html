@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>帐旅隐私政策</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --text: #1d1d1f;
+      --secondary: #6e6e73;
+      --line: rgba(0, 0, 0, 0.08);
+      --accent: #0071e3;
+      --chip: #e8e8ed;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --card: #1c1c1e;
+        --text: #f5f5f7;
+        --secondary: #a1a1a6;
+        --line: rgba(255, 255, 255, 0.12);
+        --accent: #2997ff;
+        --chip: #2c2c2e;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    header {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 8px;
+    }
+    h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .updated { color: var(--secondary); margin: 0 0 20px; }
+    .switch { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--chip); }
+    .switch button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .switch button[aria-pressed="true"] { background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+    main { max-width: 720px; margin: 0 auto; padding: 8px 24px 64px; }
+    article { display: none; }
+    article.active { display: block; }
+    section {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 22px 22px 8px;
+      margin: 16px 0;
+    }
+    h2 { font-size: 1.15rem; margin: 0 0 8px; }
+    h3 { font-size: 1.02rem; margin: 18px 0 6px; }
+    p, li { font-size: 1.02rem; }
+    ul, ol { padding-left: 1.2rem; }
+    a { color: var(--accent); }
+    footer { max-width: 720px; margin: 0 auto; padding: 0 24px 48px; color: var(--secondary); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">帐旅隐私政策</h1>
+    <p class="updated" id="updated">最后更新：2026年10月24日</p>
+    <div class="switch" role="group" aria-label="Language">
+      <button type="button" id="btn-zh" aria-pressed="true">中文</button>
+      <button type="button" id="btn-en" aria-pressed="false">English</button>
+    </div>
+  </header>
+  <main>
+    <article id="zh" class="active" lang="zh-Hans">
+      <section>
+        <p>帐旅是一款在你自己的 iPhone 上记账的应用。账单默认只保存在这台设备上。你开启“iCloud 同步”后，账单保存在你自己的 iCloud 账户里。开发者不提供账号，也不运营保存你账单的服务器。</p>
+        <p>本政策说明帐旅会处理哪些数据、这些数据存放在哪里、什么时候会离开你的设备，以及你可以如何控制和删除它们。</p>
+      </section>
+      <section>
+        <h2>概要</h2>
+        <ul>
+          <li>不需要注册或登录，不收集邮箱或手机号。</li>
+          <li>没有广告，不做跨 App 或网站的追踪，不收集广告标识符。</li>
+          <li>不集成第三方分析、广告或崩溃统计 SDK。</li>
+          <li>不出售数据，也不把数据提供给数据经纪商。</li>
+          <li>收据照片不会发送给开发者或 AI 服务。</li>
+          <li>只有在“AI 功能”开启时，识别出的收据文字或统计汇总才会发送到开发者的服务器，再转交给 AI 模型处理。服务器不保存这些内容。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>保存在设备上的数据</h2>
+        <p>以下内容保存在这台设备上（使用 SwiftData 数据库和本机设置）：</p>
+        <ul>
+          <li>账单：商家、金额、日期和时间、分类、备注、支付方式、收入或支出、所属账本、成员、识别出的收据文字，以及你添加的地点</li>
+          <li>你选择保留的收据图片</li>
+          <li>自定义分类、账本和成员</li>
+          <li>周期账单（例如房租、订阅）及其提醒设置</li>
+          <li>每月、每年和各分类的预算</li>
+          <li>“这个商家上次用的分类”</li>
+          <li>“最近取消”中的识别结果（保留 7 天，之后自动删除）</li>
+          <li>已生成的 AI 分析结果</li>
+          <li>App 的各项设置</li>
+        </ul>
+        <p>导出的 CSV 文件和完整备份文件由你自己保管。通过系统分享发出之后，接收方如何处理由接收方决定。</p>
+      </section>
+      <section>
+        <h2>iCloud 同步</h2>
+        <p>“iCloud 同步”是帐旅 Pro 功能，默认关闭，需要你在设置中手动开启。</p>
+        <ul>
+          <li>开启后，账单（包括收据图片、识别出的文字和地点）、自定义分类、周期账单、账本和成员会保存在你自己 iCloud 账户的 CloudKit 私有数据库中，并在登录同一 Apple 账户的设备之间同步。</li>
+          <li>预算、商家分类记忆、AI 分析结果和 App 设置不会同步，只保存在各自的设备上。</li>
+          <li>这些数据存放在你的 iCloud 账户中，开发者无法访问。数据的存储和传输由 Apple 提供，适用 Apple 的 iCloud 条款和隐私政策。</li>
+          <li>为了及时得知其他设备上的更改，系统会通过 Apple 推送通知服务向帐旅发送静默通知。这些通知由 Apple 的 iCloud 服务发出，开发者没有推送服务器，也不会收到推送令牌。</li>
+          <li>关闭“iCloud 同步”后（下次打开 App 时生效），账单继续保留在这台设备上，之后的修改不再上传。已经保存在 iCloud 中的副本会保留，直到你删除它（见“数据保留和删除”）。</li>
+          <li>订阅结束后，同步会暂停，账单仍保留在这台设备上。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>小组件、实时活动和分享扩展</h2>
+        <p>帐旅的 App、小组件和分享扩展通过同一个 App Group 共享容器交换数据。这个容器位于你的设备上，数据不会因此离开设备。</p>
+        <ul>
+          <li>主屏幕和锁定屏幕小组件：App 把当前账本本周、本月、今年的支出合计、预算余额和本月最多的分类写入共享容器，小组件在本机读取并显示。没有有效的 Pro 订阅时，小组件不显示这些数字，而是显示升级提示。</li>
+          <li>控制中心的“扫描收据”控制：只用于打开 App 的扫描界面，不读取账单数据。</li>
+          <li>实时活动（锁定屏幕和灵动岛）：只在本机显示当前这次识别的进度，不通过远程推送更新。</li>
+          <li>分享扩展和快捷指令：你从其他 App 分享收据图片给帐旅时，扩展会把图片保存到共享容器的收件箱。帐旅下次打开时读取这些图片并进行识别，处理后立即从收件箱删除。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>相机和相册</h2>
+        <ul>
+          <li>相机只在你拍摄收据时使用。</li>
+          <li>相册只在你选择收据图片时使用。</li>
+          <li>如果开启了“保存后询问删除原照片”，从相册导入的收据保存后，App 会询问是否删除相册中的原照片。删除的照片会进入“最近删除”，30 天内可以恢复。你可以拒绝，也可以在设置中关闭询问。</li>
+          <li>收据图片不会上传到开发者的服务器或 AI 服务。开启“iCloud 同步”时，保留的收据图片会随账单保存到你的 iCloud 账户。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>位置</h2>
+        <ul>
+          <li>只有你在记账时点按“添加当前地点”，App 才会获取一次位置，不会在后台持续定位。</li>
+          <li>坐标会发送给 Apple 的地图服务以获取地名，适用 Apple 的隐私政策。坐标和地名随这笔账单保存在设备上；开启“iCloud 同步”时也会保存到你的 iCloud 账户。</li>
+          <li>位置不会发送给开发者或 AI 服务。</li>
+          <li>你可以在设置中关闭“记账时添加地点”。关闭后不再提供定位，已保存的地点仍会保留，你可以在账单中删除。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>文字识别和 AI 功能</h2>
+        <p>“AI 功能”默认关闭。只有你在首次使用引导或设置中明确同意后才会开启；你可以随时关闭。</p>
+        <h3>收据识别</h3>
+        <ol>
+          <li>帐旅先在设备上使用 Apple 的 Vision 框架从图片中读出文字。这一步不会离开设备。</li>
+          <li>“AI 功能”开启时，读出的文字会发送到开发者部署在中国大陆的服务器（火山引擎函数服务 veFaaS，华北 2（北京）cn-beijing 区域），由服务器转交给火山引擎方舟平台上的豆包大模型，整理出商家、金额、分类、日期和备注。</li>
+          <li>请求中只包含：识别出的收据文字、当天日期、你的自定义分类名称（最多 20 个），以及识别轮次。请求中不包含图片、账单数据库、地点、预算或周期账单。</li>
+          <li>如果云端处理失败，或“AI 功能”已关闭，帐旅会改用设备端方式整理：在支持 Apple 智能的设备上使用设备端的 Apple 基础模型，否则使用本地规则。设备端处理不会离开设备。</li>
+        </ol>
+        <p>收据上如果印有姓名、电话、地址、会员号或卡号后几位，这些文字会包含在识别结果中一起发送。请不要拍摄与记账无关的文件。</p>
+        <h3>支出分析</h3>
+        <p>统计页的“AI 分析”是帐旅 Pro 功能，只在你点按之后才会发送请求。请求包含当前账本、当前时间范围的汇总：</p>
+        <ul>
+          <li>账本名称、时间范围</li>
+          <li>支出和收入合计，以及上一期的支出和收入合计</li>
+          <li>已设置预算时的预算金额和已支出金额</li>
+          <li>各分类合计（最多 12 项）、支出最多的商家及金额（最多 8 项）、按时间的趋势（最多 40 项）</li>
+          <li>按成员的合计及成员名称（最多 6 项）</li>
+          <li>界面语言（中文或英文）</li>
+        </ul>
+        <p>请求中不包含备注、收据图片、收据文字、地点或逐笔账单列表。</p>
+        <h3>开发者服务器处理什么</h3>
+        <ul>
+          <li>为防止滥用，每个请求都会附带一个随机生成的安装标识符和签名。这个标识符由 App 首次使用时生成并保存在本机钥匙串中，不与你的 Apple 账户、姓名或广告标识符关联。</li>
+          <li>服务器只把安装标识符和 IP 地址的单向哈希值用于次数限制计数。这些计数会在 2 天内自动过期。</li>
+          <li>服务器的访问日志只记录请求结果状态、耗时、安装标识符的哈希值和错误类型，不记录收据文字、统计汇总、AI 返回的内容或图片。</li>
+          <li>服务器不保存收据文字、统计汇总或 AI 返回的结果。转交给火山引擎方舟后，文字如何处理适用<a href="https://www.volcengine.com/">火山引擎</a>的服务条款和隐私政策。</li>
+        </ul>
+        <h3>关闭 AI 功能</h3>
+        <p>关闭“AI 功能”后，App 不会再向开发者的服务器或任何云端 AI 发送内容，正在进行的请求也会取消。收据改用设备端识别。统计页不再生成新的分析；以前生成的分析仍保留在这台设备上，并标明是此前生成的。</p>
+        <h3>AI 生成的内容</h3>
+        <p>AI 整理的结果会在确认页标明来源（例如“由云端 AI 识别”），保存前你可以修改。统计页的分析以“AI 分析”标示。AI 生成的内容可能不准确，仅供参考，不构成财务建议。</p>
+      </section>
+      <section>
+        <h2>帐旅 Pro 和 Ultra 订阅</h2>
+        <ul>
+          <li>新用户可在 App 内试用 Pro 14 天，无需先订阅，试用结束不会自动扣款。</li>
+          <li>Pro 和 Ultra 均提供按月或按年的自动续期订阅，价格和周期以购买页面显示为准。</li>
+          <li>购买、续订、退款和付款均由 Apple 通过 App Store 处理。开发者不会收到也不会保存你的付款信息、Apple 账户信息或联系方式。</li>
+          <li>App 只通过 StoreKit 向 Apple 查询订阅是否有效，并在本机缓存这一结果，以便在启动时和小组件中使用。</li>
+          <li>你可以在 iPhone 的“设置 &gt; [你的姓名] &gt; 订阅”中管理或取消订阅。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>通知</h2>
+        <ul>
+          <li>预算提醒、周期账单提醒和识别完成提醒都是在设备上生成的本地通知，需要你允许后才会发送。</li>
+          <li>开发者没有推送服务器。启用“iCloud 同步”时，Apple 的 iCloud 服务会发送静默通知，用于告知 App 有新的更改，这些通知不会显示给你。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>App 锁</h2>
+        <p>开启“App 锁”后，帐旅使用系统的面容 ID、触控 ID 或设备密码进行验证。验证由 iOS 完成，App 只会得到“成功”或“失败”的结果，生物识别数据不会提供给 App，也不会离开设备。</p>
+      </section>
+      <section>
+        <h2>问题报告</h2>
+        <p>“摇一摇报告问题”默认开启，可以在“设置 &gt; 高级”中关闭。摇动 iPhone 时，App 会截取当前屏幕并打开报告页面，此时不会发送任何内容。只有你在报告页点按“发送”，你写的描述、App 版本、系统版本、设备型号和语言，以及截图（可以选择不附带），才会通过你自己的邮件或系统分享发出。App 锁定时不会截图。</p>
+      </section>
+      <section>
+        <h2>数据保留和删除</h2>
+        <ul>
+          <li>在 App 内，你可以逐笔删除账单，也可以在设置中使用“删除全部账单”。开启“iCloud 同步”时，删除操作会同步到 iCloud 和你的其他设备。</li>
+          <li>删除帐旅后，系统会删除这台设备上的数据和共享容器中的数据。</li>
+          <li>保存在 iCloud 中的数据不会因删除 App 而删除。你可以在 iPhone 的“设置 &gt; [你的姓名] &gt; iCloud &gt; 管理账户储存空间”中找到帐旅并删除其数据；也可以在仍开启同步时先在 App 内删除账单，再关闭“iCloud 同步”。</li>
+          <li>开发者服务器上的次数限制计数会在 2 天内自动过期。访问日志不含可以识别你身份的信息。</li>
+          <li>由于开发者不保存你的账单，也无法访问你的 iCloud 数据，开发者无法替你查看、导出或删除这些数据。你可以随时在 App 内导出 CSV 或完整备份。</li>
+        </ul>
+      </section>
+      <section>
+        <h2>儿童</h2>
+        <p>帐旅不是面向儿童的服务，开发者不会有意收集儿童的个人信息。请不要让儿童使用帐旅拍摄含有个人信息的收据。</p>
+      </section>
+      <section>
+        <h2>政策变更</h2>
+        <p>如果数据的使用方式发生实质变化，开发者会更新本政策并修改上方的日期，必要时在 App 内提示。</p>
+      </section>
+      <section>
+        <h2>联系方式</h2>
+        <p>如果你对本政策有任何问题，请发送邮件至：<a href="mailto:AlexLeiBin1@gmail.com">AlexLeiBin1@gmail.com</a></p>
+      </section>
+    </article>
+
+    <article id="en" lang="en">
+      <section>
+        <p>PennyTrace is an expense tracker that runs on your own iPhone. By default, your expenses are stored only on this device. If you turn on iCloud Sync, they are stored in your own iCloud account. The developer does not provide accounts and does not run a server that stores your expenses.</p>
+        <p>This policy explains what data PennyTrace handles, where it is stored, when it leaves your device, and how you can control and delete it.</p>
+      </section>
+      <section>
+        <h2>Summary</h2>
+        <ul>
+          <li>No sign-up or sign-in. We do not collect your email address or phone number.</li>
+          <li>No ads, no tracking across apps or websites, and no advertising identifier.</li>
+          <li>No third-party analytics, advertising, or crash-reporting SDKs.</li>
+          <li>Data is not sold or shared with data brokers.</li>
+          <li>Receipt photos are never sent to the developer or to an AI service.</li>
+          <li>Only when AI Features is on are recognized receipt text or spending totals sent to the developer’s server, which passes them to an AI model. The server does not store this content.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Data stored on your device</h2>
+        <p>The following is stored on this device, in a SwiftData database and local settings:</p>
+        <ul>
+          <li>Expenses: merchant, amount, date and time, category, note, payment method, income or expense, ledger, member, the recognized receipt text, and any location you add</li>
+          <li>Receipt images you choose to keep</li>
+          <li>Custom categories, ledgers, and members</li>
+          <li>Recurring bills and their reminder settings</li>
+          <li>Monthly, yearly, and per-category budgets</li>
+          <li>The category you last used for each merchant</li>
+          <li>Recognition results in Recently Canceled (kept for 7 days, then deleted automatically)</li>
+          <li>AI insights you have generated</li>
+          <li>App settings</li>
+        </ul>
+        <p>CSV exports and full backup files are yours to keep. Once you share them through the share sheet, how the recipient handles them is outside this policy.</p>
+      </section>
+      <section>
+        <h2>iCloud Sync</h2>
+        <p>iCloud Sync is a PennyTrace Pro feature. It is off by default and you turn it on in Settings.</p>
+        <ul>
+          <li>When it is on, your expenses (including receipt images, recognized text, and locations), custom categories, recurring bills, ledgers, and members are stored in the private CloudKit database of your own iCloud account and synced across devices signed in to the same Apple Account.</li>
+          <li>Budgets, merchant category memory, AI insights, and app settings are not synced. They stay on each device.</li>
+          <li>This data is in your iCloud account and the developer cannot access it. Apple stores and transmits it under Apple’s iCloud terms and privacy policy.</li>
+          <li>To learn about changes made on your other devices, the system delivers silent notifications to PennyTrace through the Apple Push Notification service. These are sent by Apple’s iCloud service. The developer has no push server and does not receive a push token.</li>
+          <li>If you turn iCloud Sync off (it takes effect the next time you open the app), your expenses stay on this device and later changes are no longer uploaded. The copy already in iCloud remains until you delete it (see “Data retention and deletion”).</li>
+          <li>If your subscription ends, syncing pauses and your expenses stay on this device.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Widgets, Live Activities, and the share extension</h2>
+        <p>The PennyTrace app, its widgets, and its share extension exchange data through a shared App Group container. This container is on your device, so using it does not send data anywhere.</p>
+        <ul>
+          <li>Home Screen and Lock Screen widgets: the app writes this week’s, this month’s, and this year’s spending totals for the current ledger, remaining budget, and this month’s top category to the shared container, and the widgets read and display them on the device. Without an active Pro subscription, widgets show an upgrade prompt instead of these numbers.</li>
+          <li>The Scan Receipt control in Control Center only opens the app’s scanner. It does not read your expenses.</li>
+          <li>Live Activities (Lock Screen and Dynamic Island) show only the progress of the current scan, on the device. They are not updated by remote push.</li>
+          <li>Share extension and Shortcuts: when you share a receipt image to PennyTrace from another app, the extension saves the image to an inbox in the shared container. The next time PennyTrace opens, it reads and recognizes the image, then removes it from the inbox right away.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Camera and photo library</h2>
+        <ul>
+          <li>The camera is used only when you photograph a receipt.</li>
+          <li>The photo library is used only when you choose a receipt image.</li>
+          <li>If Ask to Delete Original Photos is on, after you save a receipt imported from your photo library, the app asks whether to delete the original. Deleted photos go to Recently Deleted and can be recovered for 30 days. You can decline, or turn the question off in Settings.</li>
+          <li>Receipt images are not uploaded to the developer’s server or to an AI service. If iCloud Sync is on, receipt images you keep are saved with your expenses in your iCloud account.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Location</h2>
+        <ul>
+          <li>The app gets your location once, and only when you tap Add Current Location while recording an expense. It does not track your location in the background.</li>
+          <li>The coordinates are sent to Apple’s map service to look up the place name, under Apple’s privacy policy. The coordinates and place name are saved with that expense on your device, and in your iCloud account if iCloud Sync is on.</li>
+          <li>Your location is never sent to the developer or to an AI service.</li>
+          <li>You can turn off Add Location When Recording in Settings. Locations you already saved are kept, and you can remove them from each expense.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Text recognition and AI features</h2>
+        <p>AI Features is off by default. It turns on only after you explicitly agree during onboarding or in Settings. You can turn it off at any time.</p>
+        <h3>Receipt recognition</h3>
+        <ol>
+          <li>PennyTrace first reads the text in the image on your device using Apple’s Vision framework. This step does not leave your device.</li>
+          <li>When AI Features is on, the recognized text is sent to the developer’s server in mainland China (Volcengine veFaaS, North China 2 (Beijing), cn-beijing region). The server passes it to the Doubao model on Volcengine Ark, which extracts the merchant, amount, category, date, and note.</li>
+          <li>The request contains only the recognized receipt text, today’s date, the names of your custom categories (up to 20), and which recognition pass it is. It does not contain the image, your expense database, locations, budgets, or recurring bills.</li>
+          <li>If cloud processing fails, or AI Features is off, PennyTrace parses the text on the device instead: with Apple’s on-device foundation model on devices that support Apple Intelligence, or with built-in rules otherwise. On-device processing does not leave your device.</li>
+        </ol>
+        <p>If a receipt shows a name, phone number, address, membership number, or the last digits of a card, that text is part of the recognized text and is sent with it. Please do not photograph documents that are unrelated to an expense.</p>
+        <h3>Spending insights</h3>
+        <p>AI Insights on the Stats screen is a PennyTrace Pro feature. A request is sent only after you tap it. It contains totals for the current ledger and period:</p>
+        <ul>
+          <li>The ledger name and period</li>
+          <li>Total spending and income, and the totals for the previous period</li>
+          <li>Your budget amount and how much you have spent, if you have set a budget</li>
+          <li>Category totals (up to 12), top merchants and amounts (up to 8), and the spending trend over time (up to 40 points)</li>
+          <li>Totals by member, with member names (up to 6)</li>
+          <li>The interface language (Chinese or English)</li>
+        </ul>
+        <p>It does not contain notes, receipt images, receipt text, locations, or a list of individual expenses.</p>
+        <h3>What the developer’s server handles</h3>
+        <ul>
+          <li>To prevent abuse, each request includes a randomly generated installation identifier and a signature. The app creates this identifier the first time it is needed and keeps it in the device keychain. It is not linked to your Apple Account, your name, or the advertising identifier.</li>
+          <li>The server uses only one-way hashes of the installation identifier and your IP address for rate-limit counters. These counters expire automatically within 2 days.</li>
+          <li>The server’s access logs record only the response status, latency, a hash of the installation identifier, and the error type. They do not record receipt text, spending totals, AI output, or images.</li>
+          <li>The server does not store receipt text, spending totals, or AI results. After the text is passed to Volcengine Ark, <a href="https://www.volcengine.com/">Volcengine</a>’s terms of service and privacy policy apply.</li>
+        </ul>
+        <h3>Turning AI Features off</h3>
+        <p>When AI Features is off, the app does not send anything to the developer’s server or to any cloud AI, and requests in progress are canceled. Receipts are recognized on the device. The Stats screen does not generate new insights. Insights you generated earlier stay on this device and are labeled as previously generated.</p>
+        <h3>AI-generated content</h3>
+        <p>The confirmation screen shows where a result came from, such as “Recognized by Cloud AI”, and you can edit it before saving. Insights on the Stats screen are labeled AI Insights. AI-generated content may be inaccurate. It is for reference only and is not financial advice.</p>
+      </section>
+      <section>
+        <h2>PennyTrace Pro and Ultra subscriptions</h2>
+        <ul>
+          <li>New users can try Pro in the app for 14 days without starting a subscription. The trial does not automatically charge you when it ends.</li>
+          <li>Pro and Ultra are available as monthly or yearly auto-renewing subscriptions. The purchase screen shows the current price and period.</li>
+          <li>Purchases, renewals, refunds, and payments are handled by Apple through the App Store. The developer does not receive or store your payment information, Apple Account details, or contact information.</li>
+          <li>The app only asks Apple, through StoreKit, whether your subscription is active, and caches that result on the device for use at launch and in widgets.</li>
+          <li>You can manage or cancel your subscription in Settings &gt; [your name] &gt; Subscriptions on your iPhone.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Notifications</h2>
+        <ul>
+          <li>Budget alerts, recurring-bill reminders, and scan-complete alerts are local notifications created on your device. They are sent only if you allow notifications.</li>
+          <li>The developer has no push server. When iCloud Sync is on, Apple’s iCloud service sends silent notifications to tell the app about new changes. These are not shown to you.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>App Lock</h2>
+        <p>When App Lock is on, PennyTrace uses the system’s Face ID, Touch ID, or device passcode. iOS performs the check and tells the app only whether it succeeded. Biometric data is not available to the app and does not leave your device.</p>
+      </section>
+      <section>
+        <h2>Problem reports</h2>
+        <p>Shake to Report a Problem is on by default. You can turn it off in Settings &gt; Advanced. When you shake your iPhone, the app captures the current screen and opens a report screen. Nothing is sent at this point. Only when you tap Send are your description, the app version, OS version, device model, and language, and the screenshot (which you can leave out), sent through your own email or the share sheet. No screenshot is taken while the app is locked.</p>
+      </section>
+      <section>
+        <h2>Data retention and deletion</h2>
+        <ul>
+          <li>In the app, you can delete individual expenses, or use Delete All Expenses in Settings. If iCloud Sync is on, deletions sync to iCloud and your other devices.</li>
+          <li>Deleting PennyTrace removes its data from this device, including the shared container.</li>
+          <li>Data in iCloud is not deleted when you delete the app. You can delete it in Settings &gt; [your name] &gt; iCloud &gt; Manage Account Storage on your iPhone by selecting PennyTrace. You can also delete your expenses in the app while sync is still on, then turn iCloud Sync off.</li>
+          <li>Rate-limit counters on the developer’s server expire within 2 days. Access logs contain nothing that identifies you.</li>
+          <li>Because the developer does not store your expenses and cannot access your iCloud data, the developer cannot view, export, or delete this data for you. You can export a CSV file or a full backup in the app at any time.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Children</h2>
+        <p>PennyTrace is not directed at children, and the developer does not knowingly collect personal information from children. Please do not let a child use PennyTrace to photograph receipts that contain personal information.</p>
+      </section>
+      <section>
+        <h2>Changes to this policy</h2>
+        <p>If the way data is used changes in a material way, the developer will update this policy and the date above, and will let you know in the app when appropriate.</p>
+      </section>
+      <section>
+        <h2>Contact</h2>
+        <p>If you have any questions about this policy, email <a href="mailto:AlexLeiBin1@gmail.com">AlexLeiBin1@gmail.com</a>.</p>
+      </section>
+    </article>
+
+  </main>
+  <footer>帐旅 · PennyTrace</footer>
+  <script>
+    const zh = document.getElementById("zh");
+    const en = document.getElementById("en");
+    const btnZh = document.getElementById("btn-zh");
+    const btnEn = document.getElementById("btn-en");
+    const title = document.getElementById("title");
+    const updated = document.getElementById("updated");
+    function setLang(language) {
+      const english = language === "en";
+      zh.classList.toggle("active", !english);
+      en.classList.toggle("active", english);
+      btnZh.setAttribute("aria-pressed", String(!english));
+      btnEn.setAttribute("aria-pressed", String(english));
+      document.documentElement.lang = english ? "en" : "zh-Hans";
+      document.title = english ? "PennyTrace Privacy Policy" : "帐旅隐私政策";
+      title.textContent = document.title;
+      updated.textContent = english ? "Last updated: October 24, 2026" : "最后更新：2026年10月24日";
+    }
+    btnZh.addEventListener("click", function () { setLang("zh"); });
+    btnEn.addEventListener("click", function () { setLang("en"); });
+    if (!navigator.language || !navigator.language.toLowerCase().startsWith("zh")) setLang("en");
+  </script>
+</body>
+</html>
