@@ -168,17 +168,19 @@
       summary::after, details { transition: none; }
     }
   </style>
+  <link rel="stylesheet" href="site-refresh.css">
+  <link rel="stylesheet" href="chart-demo.css">
 </head>
-<body>
+<body class="support-page">
   <nav>
     <div class="wrap">
-      <a class="brand" href="https://willraylei.github.io/PennyTrace/">
+      <a class="brand" href="index.html">
         <img src="assets/icon.png" alt="" width="28" height="28">
         <span lang="zh-Hans">帐旅 <small>技术支持</small></span>
         <span lang="en">PennyTrace <small>Support</small></span>
       </a>
       <div class="navlinks">
-        <a href="https://willraylei.github.io/PennyTrace/"><span lang="zh-Hans">官网</span><span lang="en">Website</span></a>
+        <a href="index.html"><span lang="zh-Hans">官网</span><span lang="en">Website</span></a>
         <a href="privacy-policy.html"><span lang="zh-Hans">隐私政策</span><span lang="en">Privacy</span></a>
       </div>
       <div class="switch" role="group" aria-label="Language">
@@ -190,21 +192,44 @@
 
   <header>
     <div class="wrap">
-      <img src="assets/icon.png" alt="" width="84" height="84">
-      <h1><span lang="zh-Hans">有什么可以帮你？</span><span lang="en">How can we help?</span></h1>
-      <p class="lead" lang="zh-Hans">先看看下面的常见问题。没找到答案，随时写信给我们。</p>
-      <p class="lead" lang="en">Start with the questions below. If you can't find an answer, just write to us.</p>
-      <div class="topics">
-        <a href="#scan">📷 <span lang="zh-Hans">拍照识别</span><span lang="en">Scanning</span></a>
-        <a href="#plans">✦ <span lang="zh-Hans">订阅与试用</span><span lang="en">Plans & trial</span></a>
-        <a href="#data">☁️ <span lang="zh-Hans">数据与同步</span><span lang="en">Data & sync</span></a>
-        <a href="#privacy">🔒 <span lang="zh-Hans">隐私与安全</span><span lang="en">Privacy</span></a>
-        <a href="#contact">✉️ <span lang="zh-Hans">联系我们</span><span lang="en">Contact</span></a>
+      <div>
+        <img src="assets/icon.png" alt="" width="84" height="84">
+        <h1><span lang="zh-Hans">一起把每一笔<br>看得更清楚。</span><span lang="en">Let's make every<br>spend clearer.</span></h1>
+        <p class="lead" lang="zh-Hans">图表、拍照识别、数据同步与订阅，常见问题都在这里。找不到答案时，可以直接联系我们。</p>
+        <p class="lead" lang="en">Find help for charts, scanning, sync and subscriptions. If your answer isn't here, reach out directly.</p>
+        <div class="topics">
+          <a href="#charts">▥ <span lang="zh-Hans">图表与统计</span><span lang="en">Charts</span></a>
+          <a href="#scan">📷 <span lang="zh-Hans">拍照识别</span><span lang="en">Scanning</span></a>
+          <a href="#plans">✦ <span lang="zh-Hans">订阅与试用</span><span lang="en">Plans & trial</span></a>
+          <a href="#data">☁️ <span lang="zh-Hans">数据与同步</span><span lang="en">Data & sync</span></a>
+          <a href="#privacy">🔒 <span lang="zh-Hans">隐私与安全</span><span lang="en">Privacy</span></a>
+          <a href="#contact">✉️ <span lang="zh-Hans">联系我们</span><span lang="en">Contact</span></a>
+        </div>
       </div>
+      <div class="support-art"><div class="chart-demo chart-demo-compact" data-mode="line" data-theme="emerald"></div></div>
     </div>
   </header>
 
   <main class="wrap">
+    <section class="group" id="charts">
+      <div class="group-head"><span class="ic">▥</span><h2><span lang="zh-Hans">图表与统计</span><span lang="en">Charts and insights</span></h2></div>
+      <details>
+        <summary><span lang="zh-Hans">如何添加和调整图表？</span><span lang="en">How do I add and arrange charts?</span></summary>
+        <p lang="zh-Hans">打开「统计」，点「添加图表」选择想看的内容。已添加图表右上角的「…」可更改展示方式与配色，也可以调整图表顺序。上方手机使用演示数据，可以直接试试柱状、折线和颜色。</p>
+        <p lang="en">Open Insights and tap Add Chart. Use the “…” menu on an added chart to change its style and color, or rearrange charts. The phone above uses sample data, so you can try bars, lines and colors here too.</p>
+      </details>
+      <details>
+        <summary><span lang="zh-Hans">概览的近 7 天图表能切换样式吗？</span><span lang="en">Can I change the 7-day overview chart?</span></summary>
+        <p lang="zh-Hans">可以。在「概览」的「近 7 天」卡片右上角打开样式菜单，可切换柱状图和折线图，并挑选配色。设置会记住，下次打开仍是你的选择。</p>
+        <p lang="en">Yes. Open the style menu at the top right of the Last 7 Days card in Overview to choose bars or a line and select a color. Your choice is saved.</p>
+      </details>
+      <details>
+        <summary><span lang="zh-Hans">消费地图、时段和日历没有内容？</span><span lang="en">Why are maps, time and calendar charts empty?</span></summary>
+        <p lang="zh-Hans">请先确认所选时间范围内有账单。地图需要账单记录地点；消费时段使用账单时间，只有日期而没有具体时间的记录无法显示在小时分布中。图表预览中的金额为演示数据。</p>
+        <p lang="en">Check that the selected period contains expenses. Maps need locations on those expenses. The time chart uses the expense time; date-only entries cannot be placed in an hourly bucket. Amounts in previews are illustrative.</p>
+      </details>
+    </section>
+
     <section id="contact">
       <div class="contact">
         <div class="card">
@@ -352,7 +377,7 @@
     </section>
 
     <div class="more">
-      <a href="https://willraylei.github.io/PennyTrace/"><b><span lang="zh-Hans">帐旅官网</span><span lang="en">Website</span></b><span lang="zh-Hans">了解全部功能和价格</span><span lang="en">Features and pricing</span></a>
+      <a href="index.html"><b><span lang="zh-Hans">帐旅官网</span><span lang="en">Website</span></b><span lang="zh-Hans">了解全部功能和价格</span><span lang="en">Features and pricing</span></a>
       <a href="privacy-policy.html"><b><span lang="zh-Hans">隐私政策</span><span lang="en">Privacy Policy</span></b><span lang="zh-Hans">我们如何处理你的数据</span><span lang="en">How we handle your data</span></a>
       <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"><b><span lang="zh-Hans">使用条款</span><span lang="en">Terms of Use</span></b><span lang="zh-Hans">Apple 标准许可协议</span><span lang="en">Apple standard EULA</span></a>
     </div>
@@ -383,6 +408,7 @@
       document.title = lang === "en" ? "PennyTrace Support" : "帐旅技术支持";
       document.querySelectorAll("[data-set-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)));
       try { localStorage.setItem("pt-lang", lang); } catch (e) {}
+      document.dispatchEvent(new Event("pennytrace:language"));
     }
     document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.setLang)));
     setLang(params.get("lang") || saved || browserLang);
@@ -393,5 +419,6 @@
       if (first) first.open = true;
     }));
   </script>
+  <script src="chart-demo.js" defer></script>
 </body>
 </html>
