@@ -283,8 +283,6 @@
       .phone.b { width: 180px; }
     }
   </style>
-  <link rel="stylesheet" href="site-refresh.css">
-  <link rel="stylesheet" href="chart-demo.css">
 </head>
 <body>
   <nav>
@@ -295,7 +293,6 @@
         <span lang="en">PennyTrace</span>
       </a>
       <div class="navlinks">
-        <a href="#charts"><span lang="zh-Hans">精美图表</span><span lang="en">Charts</span></a>
         <a href="#features"><span lang="zh-Hans">功能</span><span lang="en">Features</span></a>
         <a href="#devices"><span lang="zh-Hans">设备</span><span lang="en">Devices</span></a>
         <a href="#privacy"><span lang="zh-Hans">隐私</span><span lang="en">Privacy</span></a>
@@ -313,15 +310,15 @@
     <div class="wrap">
       <div>
         <span class="eyebrow"><span class="spark">✦</span>
-          <span lang="zh-Hans">拍照记账 · 动态图表 · 清晰掌握</span>
-          <span lang="en">Receipt scanning · Animated charts · Clear insights</span>
+          <span lang="zh-Hans">AI 识别 · 自动分类 · 支出分析</span>
+          <span lang="en">AI receipt scanning · Auto categories · Insights</span>
         </span>
         <h1>
-          <span lang="zh-Hans">看得见的<br><span class="grad">每一笔生活</span></span>
-          <span lang="en">See the story<br><span class="grad">in every spend.</span></span>
+          <span lang="zh-Hans">小票一拍，<br><span class="grad">每笔都清楚</span></span>
+          <span lang="en">Snap a receipt.<br><span class="grad">Every penny, clear.</span></span>
         </h1>
-        <p class="lead" lang="zh-Hans">拍下小票，轻松记账。再用会动的图表，看清时间、地点和分类里的消费故事。图表怎么排、用什么样式和颜色，都由你决定。</p>
-        <p class="lead" lang="en">Capture a receipt in a moment. Then explore your spending through charts that reveal when, where and how you spend. Arrange them and choose the style and color that feels right.</p>
+        <p class="lead" lang="zh-Hans">拍一下小票，AI 帮你填好商家、金额、日期和分类，确认就能保存。从拿出手机到记好一笔，不超过 10 秒。</p>
+        <p class="lead" lang="en">Take a photo of a receipt and AI fills in the merchant, amount, date and category. Confirm and save. From pocket to logged in under 10 seconds.</p>
         <div class="cta">
           <a class="store js-store" href="#download">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.67zM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27z"/></svg>
@@ -330,7 +327,7 @@
               <span>App Store</span>
             </span>
           </a>
-          <a class="ghost" href="#charts"><span lang="zh-Hans">体验动态图表 →</span><span lang="en">Explore the charts →</span></a>
+          <a class="ghost" href="#features"><span lang="zh-Hans">看看能做什么 →</span><span lang="en">See what it does →</span></a>
         </div>
         <ul class="chips">
           <li><span lang="zh-Hans">不用注册</span><span lang="en">No account</span></li>
@@ -339,32 +336,13 @@
           <li><span lang="zh-Hans">免费体验 14 天 Pro</span><span lang="en">14-day Pro trial</span></li>
         </ul>
       </div>
-      <div class="stage">
-        <div class="hero-orbit" aria-hidden="true"></div>
-        <div class="chart-demo" data-mode="bar" data-theme="emerald"></div>
-        <div class="hero-scan" aria-hidden="true"><img data-shot="01-scan" src="assets/zh/01-scan.jpg" alt="" width="640" height="1089"></div>
+      <div class="stage" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="phone a"><img data-shot="01-scan" src="assets/zh/01-scan.jpg" alt="" width="640" height="1089"></div>
+        <div class="phone b"><img data-shot="05-ai" src="assets/zh/05-ai.jpg" alt="" width="640" height="1089"></div>
       </div>
     </div>
   </header>
-
-  <section class="showcase" id="charts">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="kicker"><span lang="zh-Hans">你的图表，你来定义</span><span lang="en">Charts made yours</span></div>
-        <h2><span lang="zh-Hans">数据会动，<br>答案也更清楚。</span><span lang="en">Motion that makes<br>your money clearer.</span></h2>
-        <p class="sub" lang="zh-Hans">在「统计」里添加喜欢的图表。分类占比、每日支出、消费日历、消费时段和消费地图，把数字变成一眼能懂的画面。点点右边的手机，试试柱状、折线和不同配色。</p>
-        <p class="sub" lang="en">Add the charts you want in Insights. Category breakdowns, daily spending, calendars, time of day and spending maps make the numbers easy to understand. Try the styles and colors on the phone.</p>
-        <div class="showcase-features">
-          <span><b><span lang="zh-Hans">01 · 自选图表</span><span lang="en">01 · Pick your charts</span></b><span lang="zh-Hans">按你的习惯添加、排序</span><span lang="en">Add and arrange what matters</span></span>
-          <span><b><span lang="zh-Hans">02 · 柱状与折线</span><span lang="en">02 · Bars and lines</span></b><span lang="zh-Hans">线条从左到右绘出</span><span lang="en">Lines draw from left to right</span></span>
-          <span><b><span lang="zh-Hans">03 · 多种配色</span><span lang="en">03 · Your palette</span></b><span lang="zh-Hans">让每张图表更像你</span><span lang="en">Give every chart your look</span></span>
-          <span><b><span lang="zh-Hans">04 · 地图与日历</span><span lang="en">04 · Maps and calendars</span></b><span lang="zh-Hans">发现消费的时间与地点</span><span lang="en">See the where and when</span></span>
-        </div>
-        <p class="showcase-note"><span lang="zh-Hans">手机中的金额为演示数据。部分图表需要 Pro。</span><span lang="en">Amounts shown are illustrative. Some charts require Pro.</span></p>
-      </div>
-      <div class="chart-demo" data-mode="line" data-theme="ocean"></div>
-    </div>
-  </section>
 
   <section>
     <div class="wrap center reveal">
@@ -416,8 +394,8 @@
         <div class="text">
           <div class="kicker"><span lang="zh-Hans">概览</span><span lang="en">Overview</span></div>
           <h3><span lang="zh-Hans">这个月花了多少，一眼就知道</span><span lang="en">This month's spending, at a glance</span></h3>
-          <p class="sub" lang="zh-Hans">本月支出、预算进度、近 7 天走势和最近账单都在一页。近 7 天图表可以切换柱状或折线，并选择喜欢的颜色。</p>
-          <p class="sub" lang="en">Monthly spending, budget progress, the last 7 days and recent expenses on one screen. Switch the weekly chart between bars and a line, and choose its color.</p>
+          <p class="sub" lang="zh-Hans">本月支出、预算进度、近 7 天走势和最近账单都在一页。快速记账条常驻顶部，一点就能记。</p>
+          <p class="sub" lang="en">Monthly spending, budget progress, the last 7 days and recent expenses on one screen. The quick-add bar is always one tap away.</p>
         </div>
         <div class="shot"><img data-shot="02-overview" src="assets/zh/02-overview.jpg" alt="" loading="lazy" width="640" height="1089"></div>
       </div>
@@ -436,8 +414,8 @@
         <div class="text">
           <div class="kicker"><span lang="zh-Hans">统计</span><span lang="en">Insights</span></div>
           <h3><span lang="zh-Hans">看清钱花在哪</span><span lang="en">See where it all goes</span></h3>
-          <p class="sub" lang="zh-Hans">按周、月、年或自定义时间，查看分类、每日支出、消费时段、地图与日历。图表可自选、排序，切换样式与配色。</p>
-          <p class="sub" lang="en">Explore categories, daily spending, times, maps and calendars by week, month, year or custom period. Pick, arrange and style your charts.</p>
+          <p class="sub" lang="zh-Hans">按周、月、年或自定义时间，查看分类占比、每日支出和趋势。图表可以自选，按你的习惯排列。</p>
+          <p class="sub" lang="en">Weekly, monthly, yearly or custom stats with category breakdowns, daily spending and trends. Pick the charts you care about and arrange them your way.</p>
         </div>
         <div class="shot"><img data-shot="04-stats" src="assets/zh/04-stats.jpg" alt="" loading="lazy" width="640" height="1089"></div>
       </div>
@@ -676,7 +654,6 @@
       document.querySelectorAll("img[data-shot]").forEach(img => { img.src = `assets/${lang}/${img.dataset.shot}.jpg`; });
       document.querySelector(".plan.pro").dataset.badge = lang === "en" ? "Recommended" : "推荐";
       try { localStorage.setItem("pt-lang", lang); } catch (e) {}
-      document.dispatchEvent(new Event("pennytrace:language"));
     }
     document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.setLang)));
     setLang(initial);
@@ -690,6 +667,5 @@
       document.querySelectorAll(".reveal").forEach(el => io.observe(el));
     }
   </script>
-  <script src="chart-demo.js" defer></script>
 </body>
 </html>
