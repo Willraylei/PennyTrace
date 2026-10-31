@@ -279,7 +279,7 @@
           <li>请求中只包含：识别出的收据文字、当天日期、你的自定义分类名称（最多 20 个），以及识别轮次。请求中不包含图片、账单数据库、地点、预算或周期账单。</li>
           <li>如果云端连接或处理失败，且系统报告本机模型可用，帐旅会自动切换至 Apple Intelligence，无需手动选择。App 先用 Vision 读取图片文字，再由设备端语言模型整理文字，并非把收据图片直接交给 Apple Intelligence。若模型不可用或本次解析失败，则使用本地规则整理。设备端模型与本地规则处理均在设备上进行，不会为这一步再次向开发者或云端 AI 发送收据内容。</li>
         </ol>
-        <p>Apple Intelligence 需设备和系统支持、在系统设置中已开启且模型已就绪；可用性还取决于语言和地区，不能仅凭身处美国判断。自动回退不会撤回此前可能已发送到云端的文字，也不代表整次识别始终离线。确认页会标明“云端 AI”“Apple Intelligence”或“本地规则”等来源，并提示核对后保存。</p>
+        <p>Apple Intelligence 需设备和系统支持、在系统设置中已开启且模型已就绪；支持的语言和地区以 Apple 当前提供的服务为准。自动回退不会撤回此前可能已发送到云端的文字，也不代表整次识别始终离线。确认页会标明“云端 AI”“Apple Intelligence”或“本地规则”等来源，并提示核对后保存。</p>
         <p>收据上如果印有姓名、电话、地址、会员号或卡号后几位，这些文字会包含在识别结果中一起发送。请不要拍摄与记账无关的文件。</p>
         <h3>支出分析</h3>
         <p>统计页的“AI 分析”是帐旅 Pro 功能，只在你点按之后才会发送请求。请求包含当前账本、当前时间范围的汇总：</p>
@@ -436,7 +436,7 @@
           <li>The request contains only the recognized receipt text, today’s date, the names of your custom categories (up to 20), and which recognition pass it is. It does not contain the image, your expense database, locations, budgets, or recurring bills.</li>
           <li>If the cloud connection or processing fails and the system reports that the local model is available, PennyTrace automatically switches to Apple Intelligence without requiring you to select it. Vision first reads text from the image; the on-device language model then organizes that text. The receipt image is not passed directly to Apple Intelligence. If the model is unavailable or cannot parse the receipt, built-in rules are used instead. Both fallback steps run on your device and do not send receipt content to the developer or cloud AI again.</li>
         </ol>
-        <p>Apple Intelligence requires a supported device and system, Apple Intelligence enabled in Settings, and a ready model. Availability also depends on language and region; being in the United States alone does not guarantee access. Automatic fallback does not retract text that may already have been sent to the cloud, and does not mean the entire scan was offline. The confirmation screen identifies the source, such as Cloud AI, Apple Intelligence, or Local Rules, and asks you to review the result before saving.</p>
+        <p>Apple Intelligence requires a supported device and system, Apple Intelligence enabled in Settings, and a ready model. Supported languages and regions depend on Apple’s current availability. Automatic fallback does not retract text that may already have been sent to the cloud, and does not mean the entire scan was offline. The confirmation screen identifies the source, such as Cloud AI, Apple Intelligence, or Local Rules, and asks you to review the result before saving.</p>
         <p>If a receipt shows a name, phone number, address, membership number, or the last digits of a card, that text is part of the recognized text and is sent with it. Please do not photograph documents that are unrelated to an expense.</p>
         <h3>Spending insights</h3>
         <p>AI Insights on the Stats screen is a PennyTrace Pro feature. A request is sent only after you tap it. It contains totals for the current ledger and period:</p>
