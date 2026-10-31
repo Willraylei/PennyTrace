@@ -149,8 +149,8 @@
     <div class="w">
       <img class="rv" src="assets/icon.png" alt="" width="96" height="96">
       <h1 class="rv"><span lang="zh-Hans">隐私政策</span><span lang="en">Privacy Policy</span></h1>
-      <p class="lede rv" lang="zh-Hans">最后更新：2026年10月25日</p>
-      <p class="lede rv" lang="en">Last updated: October 25, 2026</p>
+      <p class="lede rv" lang="zh-Hans">最后更新：2026年10月31日</p>
+      <p class="lede rv" lang="en">Last updated: October 31, 2026</p>
     </div>
   </header>
 
@@ -263,7 +263,7 @@
       <section id="location" class="rv">
         <h2>位置</h2>
         <ul>
-          <li>只有你在记账时点按“添加当前地点”，App 才会获取一次位置，不会在后台持续定位。</li>
+          <li>你点按“添加当前地点”，或开启自动添加地点后当场拍摄收据时，App 会在获得系统权限后获取一次位置，不会在后台持续定位。搜索地点不要求获取当前位置；搜索词及已有地点的附近范围（如有）会发送至 Apple 地图服务以查找结果。</li>
           <li>坐标会发送给 Apple 的地图服务以获取地名，适用 Apple 的隐私政策。坐标和地名随这笔账单保存在设备上；开启“iCloud 同步”时也会保存到你的 iCloud 账户。</li>
           <li>位置不会发送给开发者或 AI 服务。</li>
           <li>你可以在设置中关闭“记账时添加地点”。关闭后不再提供定位，已保存的地点仍会保留，你可以在账单中删除。</li>
@@ -277,8 +277,9 @@
           <li>帐旅先在设备上使用 Apple 的 Vision 框架从图片中读出文字。这一步不会离开设备。</li>
           <li>“AI 功能”开启时，读出的文字会发送到开发者部署在中国大陆的服务器（火山引擎函数服务 veFaaS，华北 2（北京）cn-beijing 区域），由服务器转交给火山引擎方舟平台上的豆包大模型，整理出商家、金额、分类、日期和备注。</li>
           <li>请求中只包含：识别出的收据文字、当天日期、你的自定义分类名称（最多 20 个），以及识别轮次。请求中不包含图片、账单数据库、地点、预算或周期账单。</li>
-          <li>如果云端处理失败，帐旅会改用设备端方式整理：在支持 Apple 智能的设备上使用设备端的 Apple 基础模型，否则使用本地规则。设备端处理不会离开设备。</li>
+          <li>如果云端连接或处理失败，且系统报告本机模型可用，帐旅会自动切换至 Apple Intelligence，无需手动选择。App 先用 Vision 读取图片文字，再由设备端语言模型整理文字，并非把收据图片直接交给 Apple Intelligence。若模型不可用或本次解析失败，则使用本地规则整理。设备端模型与本地规则处理均在设备上进行，不会为这一步再次向开发者或云端 AI 发送收据内容。</li>
         </ol>
+        <p>Apple Intelligence 需设备和系统支持、在系统设置中已开启且模型已就绪；可用性还取决于语言和地区，不能仅凭身处美国判断。自动回退不会撤回此前可能已发送到云端的文字，也不代表整次识别始终离线。确认页会标明“云端 AI”“Apple Intelligence”或“本地规则”等来源，并提示核对后保存。</p>
         <p>收据上如果印有姓名、电话、地址、会员号或卡号后几位，这些文字会包含在识别结果中一起发送。请不要拍摄与记账无关的文件。</p>
         <h3>支出分析</h3>
         <p>统计页的“AI 分析”是帐旅 Pro 功能，只在你点按之后才会发送请求。请求包含当前账本、当前时间范围的汇总：</p>
@@ -306,7 +307,7 @@
       <section id="subscriptions" class="rv">
         <h2>帐旅 Pro 和 Ultra 订阅</h2>
         <ul>
-          <li>新用户可在 App 内试用 Pro 14 天，无需先订阅，试用结束不会自动扣款。</li>
+          <li>新用户可在 App 内免费使用全部 Pro 功能 14 天，无需先订阅，试用结束不会自动扣款。到期后恢复免费版权限，已有账单及自定义图表配置保留，Pro 专属功能需有效订阅才能继续使用；Ultra 专属权益不包含在 Pro 试用中。</li>
           <li>Pro 和 Ultra 均提供按月或按年的自动续期订阅，价格和周期以购买页面显示为准。</li>
           <li>购买、续订、退款和付款均由 Apple 通过 App Store 处理。开发者不会收到也不会保存你的付款信息、Apple 账户信息或联系方式。</li>
           <li>App 只通过 StoreKit 向 Apple 查询订阅是否有效，并在本机缓存这一结果，以便在启动时和小组件中使用。</li>
@@ -419,7 +420,7 @@
       <section id="en-location" class="rv">
         <h2>Location</h2>
         <ul>
-          <li>The app gets your location once, and only when you tap Add Current Location while recording an expense. It does not track your location in the background.</li>
+          <li>With your system permission, the app gets your location once when you tap Add Current Location, or when you photograph a receipt with automatic location enabled. It does not track your location in the background. Searching for a place does not require your current location. Search terms and the area around an existing place, if any, are sent to Apple Maps to find results.</li>
           <li>The coordinates are sent to Apple’s map service to look up the place name, under Apple’s privacy policy. The coordinates and place name are saved with that expense on your device, and in your iCloud account if iCloud Sync is on.</li>
           <li>Your location is never sent to the developer or to an AI service.</li>
           <li>You can turn off Add Location When Recording in Settings. Locations you already saved are kept, and you can remove them from each expense.</li>
@@ -433,8 +434,9 @@
           <li>PennyTrace first reads the text in the image on your device using Apple’s Vision framework. This step does not leave your device.</li>
           <li>When AI Features is on, the recognized text is sent to the developer’s server in mainland China (Volcengine veFaaS, North China 2 (Beijing), cn-beijing region). The server passes it to the Doubao model on Volcengine Ark, which extracts the merchant, amount, category, date, and note.</li>
           <li>The request contains only the recognized receipt text, today’s date, the names of your custom categories (up to 20), and which recognition pass it is. It does not contain the image, your expense database, locations, budgets, or recurring bills.</li>
-          <li>If cloud processing fails, PennyTrace parses the text on the device instead: with Apple’s on-device foundation model on devices that support Apple Intelligence, or with built-in rules otherwise. On-device processing does not leave your device.</li>
+          <li>If the cloud connection or processing fails and the system reports that the local model is available, PennyTrace automatically switches to Apple Intelligence without requiring you to select it. Vision first reads text from the image; the on-device language model then organizes that text. The receipt image is not passed directly to Apple Intelligence. If the model is unavailable or cannot parse the receipt, built-in rules are used instead. Both fallback steps run on your device and do not send receipt content to the developer or cloud AI again.</li>
         </ol>
+        <p>Apple Intelligence requires a supported device and system, Apple Intelligence enabled in Settings, and a ready model. Availability also depends on language and region; being in the United States alone does not guarantee access. Automatic fallback does not retract text that may already have been sent to the cloud, and does not mean the entire scan was offline. The confirmation screen identifies the source, such as Cloud AI, Apple Intelligence, or Local Rules, and asks you to review the result before saving.</p>
         <p>If a receipt shows a name, phone number, address, membership number, or the last digits of a card, that text is part of the recognized text and is sent with it. Please do not photograph documents that are unrelated to an expense.</p>
         <h3>Spending insights</h3>
         <p>AI Insights on the Stats screen is a PennyTrace Pro feature. A request is sent only after you tap it. It contains totals for the current ledger and period:</p>
@@ -462,7 +464,7 @@
       <section id="en-subscriptions" class="rv">
         <h2>PennyTrace Pro and Ultra subscriptions</h2>
         <ul>
-          <li>New users can try Pro in the app for 14 days without starting a subscription. The trial does not automatically charge you when it ends.</li>
+          <li>New users can use all Pro features free for 14 days without starting a subscription. The trial does not automatically charge you when it ends. Afterward, Free access resumes; existing expenses and custom chart configurations remain, while Pro-only features require an active subscription. Ultra-only benefits are not included in the Pro trial.</li>
           <li>Pro and Ultra are available as monthly or yearly auto-renewing subscriptions. The purchase screen shows the current price and period.</li>
           <li>Purchases, renewals, refunds, and payments are handled by Apple through the App Store. The developer does not receive or store your payment information, Apple Account details, or contact information.</li>
           <li>The app only asks Apple, through StoreKit, whether your subscription is active, and caches that result on the device for use at launch and in widgets.</li>

@@ -229,8 +229,29 @@
           <details>
             <summary><span lang="zh-Hans">提示“AI 服务连接失败”或“识别超时”</span><span lang="en">"AI connection failed" or "Recognition timed out"</span></summary>
             <div class="a">
-              <p lang="zh-Hans">请检查网络连接，并确认 iPhone 的 <kbd>设置 › 通用 › 日期与时间</kbd> 设为“自动设置”，然后点“重试”。识别一般需要 5 到 20 秒。</p>
-              <p lang="en">Check your connection and make sure <kbd>Settings › General › Date & Time</kbd> is set automatically, then tap Retry. Recognition usually takes 5 to 20 seconds.</p>
+              <p lang="zh-Hans">云端连接失败或超时时，如果本机 Apple Intelligence 已就绪，帐旅会自动切换，无需点按重试；完成后会进入确认页并标明识别来源。若本机模型不可用或本次解析失败，会使用本地规则整理；如果结果仍不足以填写账单，可选择手动填写。你也可以检查网络，并确认 iPhone 的 <kbd>设置 › 通用 › 日期与时间</kbd> 已开启“自动设置”后重新识别。</p>
+              <p lang="en">If the cloud connection fails or times out and Apple Intelligence is ready on your device, PennyTrace switches automatically; you do not need to tap Retry. The confirmation screen shows the recognition source. If the model is unavailable or cannot parse the receipt, local rules are used. You can enter the expense manually if too little information was recovered. To retry the cloud service, check your connection and enable automatic date and time in <kbd>Settings › General › Date & Time</kbd>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="zh-Hans">美国或其他海外地区能使用识别吗？</span><span lang="en">Can I scan receipts in the US or other countries?</span></summary>
+            <div class="a">
+              <p lang="zh-Hans">云端识别需要连接位于中国大陆的服务，跨境线路可能出现延迟或超时。云端失败时，本机 Apple Intelligence 可用就会自动接手。但身处美国不代表每台 iPhone 都能使用 Apple Intelligence：还取决于设备、系统、语言、地区以及模型是否已开启并就绪。</p>
+              <p lang="en">Cloud recognition connects to a service in mainland China. International connections may be slow or time out. If the cloud fails, Apple Intelligence takes over automatically when available. Being in the US does not guarantee access on every iPhone: support depends on the device, system, language, region, and whether Apple Intelligence is enabled and ready.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="zh-Hans">如何让 Apple Intelligence 可以接手识别？</span><span lang="en">How do I make Apple Intelligence available for fallback?</span></summary>
+            <div class="a">
+              <p lang="zh-Hans">在支持的 iPhone 上打开 <kbd>设置 › Apple Intelligence 与 Siri</kbd>，开启 Apple Intelligence，连接 Wi-Fi 并等待模型下载完成后再试。App 会在每次使用时检查可用状态。收据先由设备上的 Vision 读取文字，再由本机语言模型整理，并非直接调用系统的视觉智能拍照功能。</p>
+              <p lang="en">On a supported iPhone, open <kbd>Settings › Apple Intelligence &amp; Siri</kbd>, enable Apple Intelligence, connect to Wi-Fi, and wait for the model to download. The app checks availability when needed. Vision reads receipt text first, then the on-device language model organizes it; this is not the system visual intelligence camera feature.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span lang="zh-Hans">自动切换后，收据内容还会上传吗？</span><span lang="en">Does automatic fallback upload my receipt again?</span></summary>
+            <div class="a">
+              <p lang="zh-Hans">本机模型和本地规则整理在设备上进行，不会为这一步再向开发者或云端 AI 发送收据内容。但在回退之前，原先的云端请求可能已发送文字，切换不会撤回已经发送的内容。收据照片不会发送给开发者或 AI 服务。保存前请核对金额、商家和日期。</p>
+              <p lang="en">The on-device model and local rules do not send receipt content to the developer or cloud AI again for that fallback step. The original cloud request may already have sent text before the failure; switching does not retract it. Receipt photos are not sent to the developer or AI service. Check the amount, merchant, and date before saving.</p>
             </div>
           </details>
           <details>
@@ -263,8 +284,8 @@
           <details>
             <summary><span lang="zh-Hans">14 天 Pro 试用会自动扣费吗？</span><span lang="en">Will the 14-day Pro trial charge me?</span></summary>
             <div class="a">
-              <p lang="zh-Hans">不会。试用是 App 内自带的，不需要订阅，到期后自动回到免费版，已有的账单都会保留。</p>
-              <p lang="en">No. The trial is built into the app and needs no subscription. When it ends you're back on Free, and all your expenses stay.</p>
+              <p lang="zh-Hans">不会。14 天内可以免费使用全部 Pro 功能，包括添加和自定义“我的图表”，无需先订阅。到期后自动回到免费版；已有账单和图表配置保留，Pro 图表需订阅解锁后继续使用。Pro 试用不包含 Ultra 专属权益。</p>
+              <p lang="en">No. All Pro features, including adding and customizing My Charts, are available free for 14 days without starting a subscription. Afterward, Free access resumes. Your expenses and chart configurations remain, while Pro charts require a subscription to use again. Ultra-only benefits are not included.</p>
             </div>
           </details>
           <details>
